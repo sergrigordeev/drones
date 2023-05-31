@@ -7,6 +7,9 @@
     <groupId>com.musala.sg</groupId>
     <artifactId>drones</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>drones-service</module>
+    </modules>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,12 +17,28 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <dependencyManagement>
-
+        <dependencies>
+            <dependency>
+                <groupId>com.musala.sg</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.musala.sg</groupId>
+                <artifactId>usecases</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.musala.sg</groupId>
+                <artifactId>adapters</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>

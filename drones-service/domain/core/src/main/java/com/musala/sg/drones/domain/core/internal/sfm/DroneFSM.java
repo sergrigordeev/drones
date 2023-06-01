@@ -3,14 +3,16 @@ package com.musala.sg.drones.domain.core.internal.sfm;
 import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.core.internal.DroneImpl;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
+@EqualsAndHashCode
 public abstract class DroneFSM {
 
-    private final DroneImpl drone;
-    private final State state;
+    final DroneImpl drone;
+    final State state;
 
     DroneFSM(@NonNull DroneImpl drone, @NonNull State state) {
         this.drone = drone;
@@ -27,6 +29,7 @@ public abstract class DroneFSM {
             case UNLOADING -> new UnloadingState(drone);
             case UNLOADED -> new UnloadedState(drone);
             case RETURNING -> new ReturningState(drone);
+            case CHARGING -> new ChargingState(drone);
         };
     }
 
@@ -59,19 +62,19 @@ public abstract class DroneFSM {
         throw new UnsupportedOperationException("Unload All is unsupported for %s".formatted(state));
     }
 
-    public void endUnloading() {
-        throw new UnsupportedOperationException("End load is unsupported for %s".formatted(state));
-    }
-
     public void returnToBase() {
         throw new UnsupportedOperationException("Return to base is unsupported for %s".formatted(state));
     }
 
     public void idle() {
-        throw new UnsupportedOperationException("Idle to base is unsupported for %s".formatted(state));
+        throw new UnsupportedOperationException("Idle is unsupported for %s".formatted(state));
     }
 
-    public void charge() {
-        throw new UnsupportedOperationException("Charge to base is unsupported for %s".formatted(state));
+    public void startCharging() {
+        throw new UnsupportedOperationException("Charge is unsupported for %s".formatted(state));
+    }
+
+    public void endCharging() {
+        throw new UnsupportedOperationException("End charge is unsupported for %s".formatted(state));
     }
 }

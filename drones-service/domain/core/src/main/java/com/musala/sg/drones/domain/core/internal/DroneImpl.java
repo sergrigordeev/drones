@@ -1,10 +1,10 @@
 package com.musala.sg.drones.domain.core.internal;
 
-import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.Drone;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.core.internal.sfm.DroneFSM;
-import lombok.ToString;
+
+import java.util.Objects;
 
 
 /**
@@ -23,7 +23,7 @@ public class DroneImpl implements Drone {
     private int batteryCapacity;
     private DroneFSM fsm;
 
-    DroneImpl(String serialNumber, String model, int maxWeight, int batteryCapacity, State state) {
+    public DroneImpl(String serialNumber, String model, int maxWeight, int batteryCapacity, State state) {
         this.serialNumber = serialNumber;
         this.model = model;
         this.maxWeight = maxWeight;
@@ -31,23 +31,24 @@ public class DroneImpl implements Drone {
         this.fsm = DroneFSM.of(this, state);
     }
 
-    @Override
-    public void load(Medication medication){
+    public DroneFSM getFSM() {
+        return fsm;
+    }
 
+    public void updateState(DroneFSM state) {
+        this.fsm = state;
     }
 
     @Override
-    public void upload(){
-
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DroneImpl drone = (DroneImpl) o;
+        return serialNumber.equals(drone.serialNumber);
     }
 
     @Override
-    public Integer getBatteryLevel(){
-        return 0;
-    }
-
-    @Override
-    public boolean couldBeLoaded(){
-        return false;
+    public int hashCode() {
+        return Objects.hash(serialNumber);
     }
 }

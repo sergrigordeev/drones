@@ -12,7 +12,10 @@
     </modules>
     <packaging>pom</packaging>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <mocito.junit.version>5.2.0</mocito.junit.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <projectlombock.version>1.18.24</projectlombock.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -38,6 +41,12 @@
                 <artifactId>adapters</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- Tools -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -49,6 +58,25 @@
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>17</release>
+                    <annotationProcessorPaths>
+                        <!-- Mapstruct should follow the lombok path(s) -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${projectlombock.version}</version>
+                        </path>
+                        <!-- This is needed when using Lombok 1.18.16 and above -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

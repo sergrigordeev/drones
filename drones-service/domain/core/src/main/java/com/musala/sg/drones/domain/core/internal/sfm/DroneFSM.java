@@ -49,7 +49,7 @@ public abstract class DroneFSM {
         throw new UnsupportedOperationException("Start Delivery is unsupported for %s".formatted(state));
     }
 
-    public void delivered() {
+    public void endDelivery() {
         throw new UnsupportedOperationException("Start Delivery is unsupported for %s".formatted(state));
     }
 

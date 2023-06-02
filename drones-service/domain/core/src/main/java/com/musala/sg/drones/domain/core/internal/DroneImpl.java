@@ -1,6 +1,7 @@
 package com.musala.sg.drones.domain.core.internal;
 
 import com.musala.sg.drones.domain.core.api.Drone;
+import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.core.internal.sfm.DroneFSM;
 
@@ -50,5 +51,9 @@ public class DroneImpl implements Drone {
     @Override
     public int hashCode() {
         return Objects.hash(serialNumber);
+    }
+
+    public void load(Medication medication) {
+
     }
 }

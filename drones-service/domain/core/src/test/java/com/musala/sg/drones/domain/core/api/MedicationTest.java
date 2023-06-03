@@ -7,6 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MedicationTest {
 
+    @Test
+    void that_two_medication_are_equal(){
+        assertEquals(new Medication("name","CODE", 2,"url"),new Medication("name","CODE", 2,"url2"));
+    }
+    @Test
+    void that_two_medication_are_not_equal(){
+        assertNotEquals(new Medication("name","CODE", 2,"url"),new Medication("Name","CODE", 2,"url2"));
+        assertNotEquals(new Medication("name","CODE", 2,"url"),new Medication("name","CODE1", 2,"url2"));
+        assertNotEquals(new Medication("name","CODE", 2,"url"),new Medication("name","CODE", 3,"url2"));
+    }
     @Nested
     class NameTest {
         @Test

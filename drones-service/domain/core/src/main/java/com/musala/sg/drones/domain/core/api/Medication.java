@@ -1,5 +1,6 @@
 package com.musala.sg.drones.domain.core.api;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -10,7 +11,8 @@ import lombok.NonNull;
  * - image (picture of the medication case).
  */
 @Getter
-public class Medication {
+@EqualsAndHashCode(exclude = "image")
+public class Medication implements Cargo {
 
     private final String name;
     private final String code;

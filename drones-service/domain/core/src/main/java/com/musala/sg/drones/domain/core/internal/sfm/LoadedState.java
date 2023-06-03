@@ -7,4 +7,15 @@ public class LoadedState extends DroneFSM {
     public LoadedState(DroneImpl drone) {
         super(drone, State.LOADED);
     }
+
+    @Override
+    public void endLoading() {
+        getDrone().updateState(this);
+    }
+
+    @Override
+    public void startDelivery() {
+        getDrone().updateState(new DeliveringState(getDrone()));
+        getDrone().startDelivery();
+    }
 }

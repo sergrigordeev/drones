@@ -56,4 +56,8 @@ public class DroneImpl implements Drone {
     public void load(Medication medication) {
 
     }
+
+    public void startDelivery() {
+
+    }
 }

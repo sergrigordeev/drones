@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class StartDeliveryStateTest extends AbstractStateTest {
+class DeliveringStateTest extends AbstractStateTest {
 
     @Test
     void that_behavior_is_correct_for_idle_command() {
@@ -34,7 +34,7 @@ class StartDeliveryStateTest extends AbstractStateTest {
     }
 
     @Test
-    void that_behavior_is_correct_for_end_start_delivery_command() {
+    void that_behavior_is_correct_for_start_delivery_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.DELIVERING, state, state::startDelivery);
         verify(state.getDrone()).startDelivery();
@@ -48,12 +48,12 @@ class StartDeliveryStateTest extends AbstractStateTest {
     }
 
     @Test
-    void that_behavior_is_correct_for_end_start_unload_command() {
+    void that_behavior_is_correct_for_start_unload_command() {
         expectedThrows(getDroneFSM()::startUnloading);
     }
 
     @Test
-    void that_behavior_is_correct_for_end_unload_all_command() {
+    void that_behavior_is_correct_for_unload_all_command() {
         expectedThrows(getDroneFSM()::unloadAll);
     }
 

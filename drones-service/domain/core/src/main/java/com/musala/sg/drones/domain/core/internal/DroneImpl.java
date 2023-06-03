@@ -88,4 +88,7 @@ public class DroneImpl implements Drone {
 
     }
 
+    public void endCharging() {
+
+    }
 }

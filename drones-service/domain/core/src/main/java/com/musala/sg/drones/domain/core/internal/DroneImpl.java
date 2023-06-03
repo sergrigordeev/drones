@@ -60,4 +60,8 @@ public class DroneImpl implements Drone {
     public void startDelivery() {
 
     }
+
+    public void endDelivery() {
+
+    }
 }

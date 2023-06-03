@@ -71,4 +71,12 @@ public class DroneImpl implements Drone {
 
     public void unloadAll() {
     }
+
+    public void returnToBase() {
+
+    }
+
+    public void startCharging() {
+
+    }
 }

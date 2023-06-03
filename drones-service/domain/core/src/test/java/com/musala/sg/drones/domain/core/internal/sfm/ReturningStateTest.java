@@ -1,5 +1,6 @@
 package com.musala.sg.drones.domain.core.internal.sfm;
 
+import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.State;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class IdleStateTest extends AbstractStateTest {
+class ReturningStateTest extends AbstractStateTest {
 
     @Test
     void that_behavior_is_correct_for_idle_command() {
@@ -17,18 +18,17 @@ class IdleStateTest extends AbstractStateTest {
         verify(state.getDrone()).idle();
     }
 
-
     @Test
     void that_behavior_is_correct_for_start_loading_command() {
-        DroneFSM state = getDroneFSM();
-        expectedExecution(State.LOADING, state, state::startLoading);
-        verify(state.getDrone()).startLoading();
+        expectedThrows(getDroneFSM()::startLoading);
     }
 
     @Test
     void that_behavior_is_correct_for_load_command() {
-        expectedThrows(() -> getDroneFSM().load(mockMedication()));
+        Medication medication = mockMedication();
+        expectedThrows(() -> getDroneFSM().load(medication));
     }
+
 
     @Test
     void that_behavior_is_correct_for_end_load_command() {
@@ -38,6 +38,7 @@ class IdleStateTest extends AbstractStateTest {
     @Test
     void that_behavior_is_correct_for_start_delivery_command() {
         expectedThrows(getDroneFSM()::startDelivery);
+        ;
     }
 
     @Test
@@ -59,12 +60,12 @@ class IdleStateTest extends AbstractStateTest {
     void that_behavior_is_correct_for_return_to_base_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.RETURNING, state, state::returnToBase);
+        verify(state.getDrone()).returnToBase();
     }
 
     @Test
     void that_behavior_is_correct_for_start_charge_command() {
-        DroneFSM state = getDroneFSM();
-        expectedExecution(State.CHARGING, state, state::startCharging);
+        expectedThrows(getDroneFSM()::startCharging);
     }
 
     @Test
@@ -74,6 +75,6 @@ class IdleStateTest extends AbstractStateTest {
 
     @Override
     protected State getState() {
-        return State.IDLE;
+        return State.RETURNING;
     }
 }

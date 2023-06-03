@@ -53,6 +53,14 @@ public class DroneImpl implements Drone {
         return Objects.hash(serialNumber);
     }
 
+    public void idle() {
+
+    }
+
+    public void startLoading() {
+
+    }
+
     public void load(Medication medication) {
 
     }
@@ -79,4 +87,5 @@ public class DroneImpl implements Drone {
     public void startCharging() {
 
     }
+
 }

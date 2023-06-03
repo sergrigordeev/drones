@@ -11,22 +11,24 @@ public class IdleState extends DroneFSM {
 
     @Override
     public void idle() {
-        drone.updateState(this);
+        getDrone().idle();
+        getDrone().updateState(this);
     }
 
     @Override
     public void startLoading() {
-        drone.updateState(new LoadingState(getDrone()));
+        getDrone().startLoading();
+        getDrone().updateState(new LoadingState(getDrone()));
     }
 
     @Override
     public void returnToBase() {
-        drone.updateState(new ReturningState(getDrone()));
+        getDrone().updateState(new ReturningState(getDrone()));
     }
 
     @Override
     public void startCharging() {
-        drone.updateState(new ChargingState(getDrone()));
+        getDrone().updateState(new ChargingState(getDrone()));
     }
 
 

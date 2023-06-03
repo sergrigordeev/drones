@@ -68,4 +68,7 @@ public class DroneImpl implements Drone {
     public void startUnloading() {
 
     }
+
+    public void unloadAll() {
+    }
 }

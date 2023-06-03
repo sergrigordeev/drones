@@ -7,4 +7,16 @@ public class UnloadingState extends DroneFSM {
     public UnloadingState(DroneImpl drone) {
         super(drone, State.UNLOADING);
     }
+
+    @Override
+    public void startUnloading() {
+        getDrone().startUnloading();
+        getDrone().updateState(this);
+    }
+
+    @Override
+    public void unloadAll() {
+        getDrone().unloadAll();
+        getDrone().updateState(new UnloadedState(getDrone()));
+    }
 }

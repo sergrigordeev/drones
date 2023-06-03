@@ -28,7 +28,7 @@ class CargoHoldTest {
         void that_throws_when_cargos_weight_gt_than_max_weight() {
             List<Cargo> cargos = List.of(mockCargo(2));
             IllegalStateException exception = assertThrows(IllegalStateException.class, () -> new CargoHold(1, cargos));
-            assertEquals("Total weight of cargos is more than max weight.Max {}; Total{}".formatted(1, 2), exception.getMessage());
+            assertEquals("Total weight of cargos is more than max weight.Max %s; Total %s".formatted(1, 2), exception.getMessage());
         }
 
         @Test

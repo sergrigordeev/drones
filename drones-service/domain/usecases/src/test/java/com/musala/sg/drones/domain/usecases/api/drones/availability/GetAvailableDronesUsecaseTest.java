@@ -1,6 +1,6 @@
 package com.musala.sg.drones.domain.usecases.api.drones.availability;
 
-import com.musala.sg.drones.domain.core.api.DroneDto;
+import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ class GetAvailableDronesUsecaseTest {
                 .maxWeight(500)
                 .availableWeight(availableWeight)
                 .batteryLevel(batteryLevel)
-                .state(State.IDLE)
+                .state(State.IDLE.name())
                 .build();
     }
 }

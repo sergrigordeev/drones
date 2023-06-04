@@ -1,6 +1,6 @@
 package com.musala.sg.drones.domain.usecases.api.drones.availability;
 
-import com.musala.sg.drones.domain.core.api.DroneDto;
+import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import lombok.AllArgsConstructor;

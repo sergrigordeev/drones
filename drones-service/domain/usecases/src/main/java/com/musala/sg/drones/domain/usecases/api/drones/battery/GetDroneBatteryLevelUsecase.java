@@ -1,6 +1,7 @@
 package com.musala.sg.drones.domain.usecases.api.drones.battery;
 
 import com.musala.sg.drones.domain.usecases.api.Usecase;
+import com.musala.sg.drones.domain.usecases.api.ports.DronesBatteryLevelPort;
 import com.musala.sg.drones.domain.usecases.exception.BatteryLevelNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;

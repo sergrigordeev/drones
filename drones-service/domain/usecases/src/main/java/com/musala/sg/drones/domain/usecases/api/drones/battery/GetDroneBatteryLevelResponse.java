@@ -2,5 +2,7 @@ package com.musala.sg.drones.domain.usecases.api.drones.battery;
 
 import com.musala.sg.drones.domain.usecases.api.Response;
 
-public class GetDroneBatteryLevelResponse implements Response {
+import java.time.OffsetDateTime;
+
+record GetDroneBatteryLevelResponse(String serialNumber, int batteryLevel, OffsetDateTime dateTime) implements Response {
 }

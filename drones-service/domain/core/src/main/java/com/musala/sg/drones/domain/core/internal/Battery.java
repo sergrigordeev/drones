@@ -1,23 +1,28 @@
 package com.musala.sg.drones.domain.core.internal;
 
-import lombok.Value;
+import lombok.Getter;
 
-@Value
+@Getter
 public class Battery {
-    public Battery(int batteryCapacity) {
-        this.batteryCapacity = batteryCapacity;
+    private int batteryLevel;
+
+    public Battery(int batteryLevel) {
+        this.batteryLevel = batteryLevel;
         selfCheck();
     }
 
     private void selfCheck() {
         if (!isBatteryCapacityCorrect()) {
-            throw new IllegalStateException("The battery capacity should be in range 1-100, but it is " + batteryCapacity);
+            throw new IllegalStateException("The battery capacity should be in range 1-100, but it is " + batteryLevel);
         }
     }
 
     private boolean isBatteryCapacityCorrect() {
-        return batteryCapacity >= 0 && batteryCapacity <= 100;
+        return batteryLevel >= 0 && batteryLevel <= 100;
     }
 
-    private final int batteryCapacity;
+    public void updateBatteryLevel(int batteryLevel) {
+        this.batteryLevel = batteryLevel;
+        selfCheck();
+    }
 }

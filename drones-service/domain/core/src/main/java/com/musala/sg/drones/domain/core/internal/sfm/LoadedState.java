@@ -16,6 +16,5 @@ public class LoadedState extends DroneFSM {
     @Override
     public void startDelivery() {
         getDrone().updateState(new DeliveringState(getDrone()));
-        getDrone().startDelivery();
     }
 }

@@ -42,14 +42,12 @@ class DeliveredStateTest extends AbstractStateTest {
     void that_behavior_is_correct_for_end_delivered_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.DELIVERED, state, state::endDelivery);
-        verify(state.getDrone()).endDelivery();
     }
 
     @Test
     void that_behavior_is_correct_for_start_unload_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.UNLOADING,state ,state::startUnloading);
-        verify(state.getDrone()).startUnloading();
     }
 
     @Test

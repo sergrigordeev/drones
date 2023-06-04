@@ -10,13 +10,11 @@ public class DeliveredState extends DroneFSM {
 
     @Override
     public void endDelivery() {
-        getDrone().endDelivery();
         getDrone().updateState(this);
     }
 
     @Override
     public void startUnloading() {
-        getDrone().startUnloading();
         getDrone().updateState(new UnloadingState(getDrone()));
     }
 }

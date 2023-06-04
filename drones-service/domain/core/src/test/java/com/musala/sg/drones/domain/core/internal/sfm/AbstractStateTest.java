@@ -2,6 +2,9 @@ package com.musala.sg.drones.domain.core.internal.sfm;
 
 import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.State;
+import com.musala.sg.drones.domain.core.internal.Battery;
+import com.musala.sg.drones.domain.core.internal.CargoHold;
+import com.musala.sg.drones.domain.core.internal.DroneIdentity;
 import com.musala.sg.drones.domain.core.internal.DroneImpl;
 import org.junit.jupiter.api.function.Executable;
 
@@ -20,7 +23,7 @@ public abstract class AbstractStateTest {
         assertThrows(UnsupportedOperationException.class, supplier);
     }
     protected Medication mockMedication() {
-        return null;
+        return new Medication("name","CODE",1,"");
     }
 
     protected abstract State getState();
@@ -31,8 +34,17 @@ public abstract class AbstractStateTest {
 
 
     protected DroneImpl spyDrone() {
-        return spy(new DroneImpl("", "", 500, 100, getState()));
+        return spy(new DroneImpl(new DroneIdentity("1", DroneIdentity.Model.LIGHTWEIGHT), new CargoHold(100), new Battery(100), getState()));
     }
+    protected DroneFSM getDroneFSMWithSpecificBatteryLevel(int batteryLevel) {
+        return DroneFSM.of(spyDroneWithSpecificBatteryLevel(batteryLevel), getState());
+    }
+    protected DroneImpl spyDroneWithSpecificBatteryLevel(int batteryLevel) {
+        return spy(new DroneImpl(
+                new DroneIdentity("1", DroneIdentity.Model.LIGHTWEIGHT),
+                new CargoHold(100),
+                new Battery(batteryLevel),
+                getState()));
 
-
+    }
 }

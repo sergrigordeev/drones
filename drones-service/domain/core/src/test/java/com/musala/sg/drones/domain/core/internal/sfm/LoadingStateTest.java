@@ -27,7 +27,7 @@ class LoadingStateTest extends AbstractStateTest {
         DroneFSM state = getDroneFSM();
         Medication medication = mockMedication();
         expectedExecution(State.LOADING, state, () -> state.load(medication));
-        verify(state.getDrone()).load(medication);
+        verify(state.getDrone()).loadToCargoHold(medication);
     }
 
 

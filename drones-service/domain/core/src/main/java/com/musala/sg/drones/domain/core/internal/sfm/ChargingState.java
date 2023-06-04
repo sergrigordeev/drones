@@ -11,13 +11,11 @@ public class ChargingState extends DroneFSM {
 
     @Override
     public void startCharging() {
-        getDrone().startCharging();
         getDrone().updateState(this);
     }
 
     @Override
     public void endCharging() {
-        getDrone().endCharging();
         getDrone().updateState(new IdleState(getDrone()));
     }
 }

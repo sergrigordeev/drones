@@ -47,7 +47,6 @@ class UnloadingStateTest extends AbstractStateTest {
         DroneFSM state = getDroneFSM();
 
         expectedExecution(State.UNLOADING,state, state::startUnloading);
-        verify(state.getDrone()).startUnloading();
     }
 
     @Test
@@ -55,7 +54,6 @@ class UnloadingStateTest extends AbstractStateTest {
         DroneFSM state = getDroneFSM();
 
         expectedExecution(State.UNLOADED,state, state::unloadAll);
-        verify(state.getDrone()).unloadAll();
     }
 
     @Test

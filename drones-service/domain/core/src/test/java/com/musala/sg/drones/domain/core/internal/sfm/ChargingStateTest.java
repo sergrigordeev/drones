@@ -60,14 +60,13 @@ class ChargingStateTest extends AbstractStateTest {
     void that_behavior_is_correct_for_start_charge_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.CHARGING, state, state::startCharging);
-        verify(state.getDrone()).startCharging();
+
     }
 
     @Test
     void that_behavior_is_correct_for_end_charging_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.IDLE, state, state::endCharging);
-        verify(state.getDrone()).endCharging();
     }
 
     @Override

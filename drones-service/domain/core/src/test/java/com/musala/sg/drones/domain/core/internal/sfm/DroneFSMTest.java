@@ -60,7 +60,9 @@ class DroneFSMTest {
         }
 
         private DroneImpl mockDrone() {
-            return Mockito.mock(DroneImpl.class);
+            DroneImpl mockDrone = Mockito.mock(DroneImpl.class);
+            Mockito.doReturn(100).when(mockDrone).getBatteryLevel();
+            return mockDrone;
         }
     }
 }

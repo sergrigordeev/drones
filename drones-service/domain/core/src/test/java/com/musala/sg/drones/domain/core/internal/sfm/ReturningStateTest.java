@@ -15,7 +15,6 @@ class ReturningStateTest extends AbstractStateTest {
     void that_behavior_is_correct_for_idle_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.IDLE, state, state::idle);
-        verify(state.getDrone()).idle();
     }
 
     @Test
@@ -60,7 +59,6 @@ class ReturningStateTest extends AbstractStateTest {
     void that_behavior_is_correct_for_return_to_base_command() {
         DroneFSM state = getDroneFSM();
         expectedExecution(State.RETURNING, state, state::returnToBase);
-        verify(state.getDrone()).returnToBase();
     }
 
     @Test

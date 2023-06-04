@@ -11,13 +11,11 @@ public class IdleState extends DroneFSM {
 
     @Override
     public void idle() {
-        getDrone().idle();
         getDrone().updateState(this);
     }
 
     @Override
     public void startLoading() {
-        getDrone().startLoading();
         getDrone().updateState(new LoadingState(getDrone()));
     }
 

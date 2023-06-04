@@ -10,13 +10,13 @@ public class UnloadingState extends DroneFSM {
 
     @Override
     public void startUnloading() {
-        getDrone().startUnloading();
         getDrone().updateState(this);
     }
 
     @Override
     public void unloadAll() {
-        getDrone().unloadAll();
+        getDrone().unloadAllFromCargo();
         getDrone().updateState(new UnloadedState(getDrone()));
+
     }
 }

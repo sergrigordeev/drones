@@ -1,4 +1,4 @@
-package com.musala.sg.drones.domain.usecases.api.medication.load;
+package com.musala.sg.drones.domain.usecases.api.drones.load;
 
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 

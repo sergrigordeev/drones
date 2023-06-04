@@ -12,6 +12,13 @@ public class DroneFactoryImpl implements DroneFactory {
         return new DroneImpl(identity, cargoHold, battery, State.valueOf(droneDto.getState()));
     }
 
+    @Override
+    public Drone create(String serialNumber, String model, int maxWeight) {
+        DroneIdentity identity = new DroneIdentity(serialNumber, DroneIdentity.Model.valueOf(model));
+        CargoHold cargoHold = new CargoHold(maxWeight);
+        return new DroneImpl(identity, cargoHold, Battery.full(), State.IDLE);
+    }
+
 
     protected static DroneIdentity getIdentity(DroneDto droneDto) {
         return new DroneIdentity(droneDto.getSerialNumber(), DroneIdentity.Model.valueOf(droneDto.getModel()));

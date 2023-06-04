@@ -4,11 +4,17 @@ import lombok.Getter;
 
 @Getter
 public class Battery {
+    public static final int MAX_BATTERY_LEVEL = 100;
+    public static final int MIN_BATTERY_LEVEL = 0;
     private int batteryLevel;
 
     public Battery(int batteryLevel) {
         this.batteryLevel = batteryLevel;
         selfCheck();
+    }
+
+    public static Battery full() {
+        return new Battery(MAX_BATTERY_LEVEL);
     }
 
     private void selfCheck() {
@@ -18,7 +24,7 @@ public class Battery {
     }
 
     private boolean isBatteryCapacityCorrect() {
-        return batteryLevel >= 0 && batteryLevel <= 100;
+        return batteryLevel >= MIN_BATTERY_LEVEL && batteryLevel <= MAX_BATTERY_LEVEL;
     }
 
     public void updateBatteryLevel(int batteryLevel) {

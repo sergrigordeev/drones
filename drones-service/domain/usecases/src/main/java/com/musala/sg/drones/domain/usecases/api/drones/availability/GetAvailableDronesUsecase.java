@@ -1,6 +1,7 @@
 package com.musala.sg.drones.domain.usecases.api.drones.availability;
 
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
+import com.musala.sg.drones.domain.usecases.api.DroneResponse;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,6 @@ public class GetAvailableDronesUsecase implements Usecase<GetAvailableDronesQuer
     }
 
     private DroneResponse convert(DroneDto dto) {
-        return new DroneResponse(dto.getSerialNumber(), dto.getAvailableWeight(), dto.getBatteryLevel());
+        return new DroneResponse(dto.getSerialNumber(), dto.getState(), dto.getAvailableWeight(), dto.getBatteryLevel());
     }
 }

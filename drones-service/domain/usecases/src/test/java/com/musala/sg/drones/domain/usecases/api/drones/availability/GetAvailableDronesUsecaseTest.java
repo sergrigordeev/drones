@@ -1,7 +1,8 @@
 package com.musala.sg.drones.domain.usecases.api.drones.availability;
 
-import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.core.api.State;
+import com.musala.sg.drones.domain.core.api.dto.DroneDto;
+import com.musala.sg.drones.domain.usecases.api.DroneResponse;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,9 +43,9 @@ class GetAvailableDronesUsecaseTest {
         GetAvailableDronesResponse response = usecase.execute(query);
 
         assertEquals(3, response.drones().size());
-        assertEquals(new DroneResponse("sn1", 100, 75), response.drones().get(0));
-        assertEquals(new DroneResponse("sn2", 30, 25), response.drones().get(1));
-        assertEquals(new DroneResponse("sn3", 200, 45), response.drones().get(2));
+        assertEquals(new DroneResponse("sn1", State.IDLE.name(), 100, 75), response.drones().get(0));
+        assertEquals(new DroneResponse("sn2", State.IDLE.name(), 30, 25), response.drones().get(1));
+        assertEquals(new DroneResponse("sn3", State.IDLE.name(), 200, 45), response.drones().get(2));
 
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 public class CargoHold {
-
+    private static final int MAX_ALLOWED_WEIGHT = 500;
     private final int maxWeight;
     private List<Cargo> cargos;
 
@@ -38,7 +38,7 @@ public class CargoHold {
     }
 
     private boolean isMaxWeightCorrect() {
-        return maxWeight >= 0;
+        return maxWeight >= 0 && maxWeight <= MAX_ALLOWED_WEIGHT;
     }
 
     void load(@NonNull Cargo cargo) {

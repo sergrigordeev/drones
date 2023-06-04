@@ -19,7 +19,11 @@ class CargoHoldTest {
             IllegalStateException exception = assertThrows(IllegalStateException.class, () -> new CargoHold(-1));
             assertEquals("Max weight can not be less than 0, but it is -1", exception.getMessage());
         }
-
+        @Test
+        void that_throws_when_max_weight_is_more_than_500() {
+            IllegalStateException exception = assertThrows(IllegalStateException.class, () -> new CargoHold(501));
+            assertEquals("Max weight can not be less than 0, but it is 501", exception.getMessage());
+        }
         @Test
         void that_throws_when_cargo_list_is_null() {
             assertThrows(NullPointerException.class, () -> new CargoHold(0, null));

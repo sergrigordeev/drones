@@ -1,6 +1,7 @@
 package com.musala.sg.drones.domain.core.internal;
 
 import com.musala.sg.drones.domain.core.api.Cargo;
+import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.exceptions.CargoLoadException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,6 @@ class CargoHoldTest {
     }
 
     private Cargo mockCargo(int i) {
-        return () -> i;
+        return new Medication("name", "CODE", i, "");
     }
 }

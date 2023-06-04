@@ -11,31 +11,31 @@ import lombok.NonNull;
  * - image (picture of the medication case).
  */
 @Getter
-@EqualsAndHashCode(exclude = "image")
+@EqualsAndHashCode(exclude = "imageUrl")
 public class Medication implements Cargo {
 
     private final String name;
     private final String code;
     private final int weight;
-    private final String image;
+    private final String imageUrl;
 
-    public Medication(@NonNull String name, @NonNull String code, int weight, @NonNull String image) {
+    public Medication(@NonNull String name, @NonNull String code, int weight, @NonNull String imageUrl) {
         this.name = name;
         this.code = code;
         this.weight = weight;
-        this.image = image;
+        this.imageUrl = imageUrl;
         selfCheck();
     }
 
     private void selfCheck() {
-        if (!isWeightCorrect()){
-            throw new IllegalStateException("Weight should be more than 1g, but it is "+ weight);
+        if (!isWeightCorrect()) {
+            throw new IllegalStateException("Weight should be more than 1g, but it is " + weight);
         }
-        if (!isNameCorrect()){
-            throw new IllegalStateException("Name should contains only letters, '_', '-', but it is "+ name);
+        if (!isNameCorrect()) {
+            throw new IllegalStateException("Name should contains only letters, '_', '-', but it is " + name);
         }
-        if (!isCodeCorrect()){
-            throw new IllegalStateException("Code should contains only uppercase letters, '_', numbers, but it is "+ code);
+        if (!isCodeCorrect()) {
+            throw new IllegalStateException("Code should contains only uppercase letters, '_', numbers, but it is " + code);
         }
     }
 
@@ -46,6 +46,7 @@ public class Medication implements Cargo {
     private boolean isNameCorrect() {
         return name.matches("[a-zA-Z\\-_]+");
     }
+
     private boolean isCodeCorrect() {
         return code.matches("[A-Z0-9_]+");
     }

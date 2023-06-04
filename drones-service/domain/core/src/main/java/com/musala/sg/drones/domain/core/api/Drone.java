@@ -1,5 +1,7 @@
 package com.musala.sg.drones.domain.core.api;
 
+import com.musala.sg.drones.domain.core.internal.DroneIdentity;
+
 import java.util.List;
 
 public interface Drone {
@@ -23,4 +25,10 @@ public interface Drone {
     int getBatteryLevel();
 
     List<Cargo> getCargos();
+
+    int getMaxWeight();
+
+    int getAvailableWeight();
+
+    DroneIdentity getIdentity();
 }

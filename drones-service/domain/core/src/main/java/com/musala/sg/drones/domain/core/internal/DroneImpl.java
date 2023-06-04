@@ -44,8 +44,19 @@ public class DroneImpl implements Drone {
         return cargoHold.getCargos();
     }
 
-    public void idle() {
-        fsm.idle();
+    @Override
+    public int getMaxWeight() {
+        return cargoHold.getMaxWeight();
+    }
+
+    @Override
+    public int getAvailableWeight() {
+        return cargoHold.availableWeight();
+    }
+
+    @Override
+    public DroneIdentity getIdentity() {
+        return identity;
     }
 
     @Override
@@ -91,7 +102,9 @@ public class DroneImpl implements Drone {
     public void startCharging() {
         fsm.startCharging();
     }
-
+    public void idle() {
+        fsm.idle();
+    }
     public void endCharging() {
         fsm.endCharging();
     }

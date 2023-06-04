@@ -195,6 +195,7 @@ class DroneImplTest {
         List<Cargo> cargos = drone.getCargos();
         assertEquals(2, cargos.size());
     }
+
     @Test
     void that_get_battery_lvl_return_value() {
         CargoHold cargoHold = new CargoHold(500);
@@ -203,6 +204,32 @@ class DroneImplTest {
         int lvl = drone.getBatteryLevel();
         assertEquals(25, lvl);
     }
+
+    @Test
+    void that_get_max_weight_return_value() {
+        CargoHold cargoHold = new CargoHold(500);
+        Battery battery = new Battery(25);
+        DroneImpl drone = new DroneImpl(new DroneIdentity("sn", DroneIdentity.Model.CRUISERWEIGHT), cargoHold, battery, State.LOADED);
+        assertEquals(cargoHold.getMaxWeight(), drone.getMaxWeight());
+    }
+
+    @Test
+    void that_get_available_return_value() {
+        CargoHold cargoHold = new CargoHold(500, List.of(getMedication(456)));
+        Battery battery = new Battery(25);
+        DroneImpl drone = new DroneImpl(new DroneIdentity("sn", DroneIdentity.Model.CRUISERWEIGHT), cargoHold, battery, State.LOADED);
+        assertEquals(cargoHold.availableWeight(), drone.getAvailableWeight());
+    }
+
+    @Test
+    void that_get_identity_return_value() {
+        CargoHold cargoHold = new CargoHold(500, List.of(getMedication(456)));
+        Battery battery = new Battery(25);
+        DroneIdentity identity = new DroneIdentity("sn", DroneIdentity.Model.CRUISERWEIGHT);
+        DroneImpl drone = new DroneImpl(identity, cargoHold, battery, State.LOADED);
+        assertEquals(identity, drone.getIdentity());
+    }
+
     private Medication getMedication(int weight) {
         Medication medication = new Medication("name", "CODE", weight, "");
         return medication;

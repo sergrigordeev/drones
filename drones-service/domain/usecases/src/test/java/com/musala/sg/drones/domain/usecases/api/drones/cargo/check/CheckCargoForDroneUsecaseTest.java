@@ -6,6 +6,7 @@ import com.musala.sg.drones.domain.core.api.DroneFactory;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.core.internal.DroneFactoryImpl;
 import com.musala.sg.drones.domain.core.internal.DroneIdentity;
+import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.exception.NoDroneFoundException;
 import org.junit.jupiter.api.Test;
@@ -33,15 +34,16 @@ class CheckCargoForDroneUsecaseTest {
 
     @Test
     void that_throws_drone_not_found_exception_when_no_drone_exists_by_sn() {
-        CheckCargoQuery sn = new CheckCargoQuery("sn");
-        NoDroneFoundException exception = assertThrows(NoDroneFoundException.class, () -> usecase.execute(sn));
+        CheckCargoQuery query = new CheckCargoQuery("sn");
+        NoDroneFoundException exception = assertThrows(NoDroneFoundException.class, () -> usecase.execute(query));
         assertEquals("No drone with SN sn has been found", exception.getMessage());
     }
 
     @Test
     void that_returns_response() {
         CheckCargoQuery query = new CheckCargoQuery("sn");
-        doReturn(Optional.of(mockDroneDto("sn"))).when(mockFindDronesPort).findBySerialNumber(query);
+        DroneSearchQuery droneSearchQuery = new DroneSearchQuery("sn");
+        doReturn(Optional.of(mockDroneDto("sn"))).when(mockFindDronesPort).findBy(droneSearchQuery);
 
         CheckCargoResponse response = usecase.execute(query);
 

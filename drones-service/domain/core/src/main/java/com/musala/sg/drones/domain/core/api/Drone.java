@@ -31,4 +31,6 @@ public interface Drone {
     int getAvailableWeight();
 
     DroneIdentity getIdentity();
+
+    String getState();
 }

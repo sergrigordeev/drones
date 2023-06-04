@@ -60,6 +60,11 @@ public class DroneImpl implements Drone {
     }
 
     @Override
+    public String getState() {
+        return String.valueOf(getFSM().getState());
+    }
+
+    @Override
     public void startLoading() {
         fsm.startLoading();
     }
@@ -102,9 +107,11 @@ public class DroneImpl implements Drone {
     public void startCharging() {
         fsm.startCharging();
     }
+
     public void idle() {
         fsm.idle();
     }
+
     public void endCharging() {
         fsm.endCharging();
     }

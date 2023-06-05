@@ -11,9 +11,12 @@ import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.api.ports.SaveDronePort;
 import com.musala.sg.drones.domain.usecases.exception.DroneRegistrationException;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Component
 @AllArgsConstructor
 public class RegisterDroneUsecase implements Usecase<RegisterDroneCommand, DroneResponse> {
 
@@ -21,6 +24,7 @@ public class RegisterDroneUsecase implements Usecase<RegisterDroneCommand, Drone
     private final SaveDronePort saveDronesPort;
     private final DroneFactory droneFactory;
 
+    @Transactional
     @Override
     public DroneResponse execute(RegisterDroneCommand command) {
         DroneSearchQuery query = new DroneSearchQuery(command.serialNumber());

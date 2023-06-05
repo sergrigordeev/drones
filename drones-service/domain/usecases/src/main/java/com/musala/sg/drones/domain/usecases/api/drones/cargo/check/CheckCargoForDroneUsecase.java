@@ -4,14 +4,16 @@ import com.musala.sg.drones.domain.core.api.Cargo;
 import com.musala.sg.drones.domain.core.api.Drone;
 import com.musala.sg.drones.domain.core.api.DroneFactory;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
-import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
+import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.exception.NoDroneFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @AllArgsConstructor
 public class CheckCargoForDroneUsecase implements Usecase<CheckCargoQuery, CheckCargoResponse> {
 

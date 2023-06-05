@@ -12,13 +12,17 @@ import com.musala.sg.drones.domain.usecases.api.ports.SaveDronePort;
 import com.musala.sg.drones.domain.usecases.exception.NoDroneFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+@Component
 @AllArgsConstructor
 public class LoadMedicationUsecase implements Usecase<LoadMedicationCommand, LoadMedicationResponse> {
     private final FindDronesPort findDronesPort;
     private final SaveDronePort saveDronesPort;
     private final DroneFactory droneFactory;
 
+    @Transactional
     @Override
     public LoadMedicationResponse execute(@NonNull LoadMedicationCommand command) {
         DroneSearchQuery query = convertToDroneSearchQuery(command);
@@ -31,7 +35,7 @@ public class LoadMedicationUsecase implements Usecase<LoadMedicationCommand, Loa
     }
 
     protected Medication convertMedication(CargoDto cargo) {
-        return new Medication(cargo.getName(), cargo.getCode(),cargo.getWeight(), cargo.getImageUrl());
+        return new Medication(cargo.getName(), cargo.getCode(), cargo.getWeight(), cargo.getImageUrl());
     }
 
     protected DroneSearchQuery convertToDroneSearchQuery(LoadMedicationCommand command) {

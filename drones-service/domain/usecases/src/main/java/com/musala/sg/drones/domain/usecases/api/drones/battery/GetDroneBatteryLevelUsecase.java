@@ -5,8 +5,9 @@ import com.musala.sg.drones.domain.usecases.api.ports.DronesBatteryLevelPort;
 import com.musala.sg.drones.domain.usecases.exception.BatteryLevelNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
-
+@Component
 @AllArgsConstructor
 public class GetDroneBatteryLevelUsecase implements Usecase<GetDroneBatteryLevelQuery, GetDroneBatteryLevelResponse> {
     private final DronesBatteryLevelPort findDronesPort;

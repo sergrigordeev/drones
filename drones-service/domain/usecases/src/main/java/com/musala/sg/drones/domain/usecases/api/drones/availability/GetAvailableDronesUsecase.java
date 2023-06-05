@@ -6,10 +6,12 @@ import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @AllArgsConstructor
 public class GetAvailableDronesUsecase implements Usecase<GetAvailableDronesQuery, GetAvailableDronesResponse> {
     private final FindDronesPort findDronesPort;

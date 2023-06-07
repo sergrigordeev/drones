@@ -1,5 +1,6 @@
 package com.musala.sg.drones.domain.usecases.api.drones.battery;
 
+import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.ports.DronesBatteryLevelPort;
 import com.musala.sg.drones.domain.usecases.exception.BatteryLevelNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,13 +27,14 @@ class GetDroneBatteryLevelUsecaseTest {
 
     @Test
     void that_throws_exception_when_drone_does_not_exists() {
-        GetDroneBatteryLevelQuery query = new GetDroneBatteryLevelQuery("serialNumber");
+        DroneSearchQuery query = new DroneSearchQuery("serialNumber");
         BatteryLevelNotFoundException exception = assertThrows(BatteryLevelNotFoundException.class, () -> usecase.execute(query));
         assertEquals("No battery level log found for drone with sn serialNumber", exception.getMessage());
     }
+
     @Test
     void that_returns_response() {
-        GetDroneBatteryLevelQuery query = new GetDroneBatteryLevelQuery("serialNumber");
+        DroneSearchQuery query = new DroneSearchQuery("serialNumber");
         OffsetDateTime lastCheckDateTime = OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC);
         Optional<BatteryLevelLogDto> optBatteryLvl = Optional.of(new BatteryLevelLogDto("serialNumber", 77, lastCheckDateTime));
         doReturn(optBatteryLvl).when(mockDronesBatteryLevelPort).findLatestBySerialNumber(query);

@@ -1,5 +1,6 @@
 package com.musala.sg.drones.domain.usecases.api.drones.battery;
 
+import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.DronesBatteryLevelPort;
 import com.musala.sg.drones.domain.usecases.exception.BatteryLevelNotFoundException;
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class GetDroneBatteryLevelUsecase implements Usecase<GetDroneBatteryLevelQuery, GetDroneBatteryLevelResponse> {
+public class GetDroneBatteryLevelUsecase implements Usecase<DroneSearchQuery, GetDroneBatteryLevelResponse> {
     private final DronesBatteryLevelPort findDronesPort;
 
     @Override
-    public GetDroneBatteryLevelResponse execute(@NonNull GetDroneBatteryLevelQuery request) {
+    public GetDroneBatteryLevelResponse execute(@NonNull DroneSearchQuery request) {
         BatteryLevelLogDto batteryLevelLogDto = findDronesPort.findLatestBySerialNumber(request).orElseThrow(() -> new BatteryLevelNotFoundException(request));
         return convert(batteryLevelLogDto);
     }

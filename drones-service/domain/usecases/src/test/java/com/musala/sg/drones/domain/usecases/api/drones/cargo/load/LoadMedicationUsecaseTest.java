@@ -77,7 +77,7 @@ class LoadMedicationUsecaseTest {
         verify(spyDroneFactory).restore(dto);
         verify(spyDroneFactory).restore(dto);
         verify(mockDrone).load(any(Medication.class));
-        verify(mockSaveDronePort).loadMedication(any(), any(Medication.class));
+        verify(mockSaveDronePort).loadMedication(any());
     }
 
     private DroneDto mockDroneDto(String sn) {

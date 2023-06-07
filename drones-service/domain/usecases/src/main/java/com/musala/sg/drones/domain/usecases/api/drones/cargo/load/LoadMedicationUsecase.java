@@ -28,9 +28,8 @@ public class LoadMedicationUsecase implements Usecase<LoadMedicationCommand, Loa
         DroneSearchQuery query = convertToDroneSearchQuery(command);
         DroneDto droneDto = findDronesPort.findBy(query).orElseThrow(() -> new NoDroneFoundException(query));
         Drone drone = droneFactory.restore(droneDto);
-        Medication medication = convertMedication(command.medication());
-        drone.load(medication);
-        saveDronesPort.loadMedication(drone.getIdentity(), medication);
+        drone.load(convertMedication(command.medication()));
+        saveDronesPort.loadMedication(command);
         return new LoadMedicationResponse();
     }
 

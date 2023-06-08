@@ -35,6 +35,16 @@ class DroneAdapter implements FindDronesPort, SaveDronePort {
     public List<DroneDto> findAllAvailableDrones(GetAvailableDronesQuery query) {
 
         List<JpaDrone> drones = droneRepository.findAllByState("IDLE");
+        return processCollection(drones);
+    }
+
+    @Override
+    public List<DroneDto> findAll() {
+        List<JpaDrone> drones = droneRepository.findAll();
+        return processCollection(drones);
+    }
+
+    protected List<DroneDto> processCollection(List<JpaDrone> drones) {
         if (drones.isEmpty()) {
             return List.of();
         }
@@ -57,6 +67,7 @@ class DroneAdapter implements FindDronesPort, SaveDronePort {
         DroneDto dto = toDtoWithBatteryLevel(drone);
         return Optional.of(dto);
     }
+
 
     protected DroneDto toDtoWithBatteryLevel(JpaDrone drone) {
         int batteryLvl = latestBatteryLvl(new DroneSearchQuery(drone.getSerialNumber()));

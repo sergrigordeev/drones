@@ -1,6 +1,5 @@
 package com.musala.sg.drones.adapters.jpa.drone.api;
 
-import com.musala.sg.drones.adapters.jpa.drone.api.DroneAdapter;
 import com.musala.sg.drones.adapters.jpa.drone.internal.JpaCargo;
 import com.musala.sg.drones.adapters.jpa.drone.internal.JpaCargoRepository;
 import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDrone;
@@ -47,30 +46,45 @@ class DroneAdapterTest {
     JpaCargoMapper jpaCargoMapper = Mappers.getMapper(JpaCargoMapper.class);
 
     @Nested
-    class FindAllByState {
+    class FindAllTest {
+
         @Test
-        void that_returns_empty_list_when_no_available_drones() {
+        void that_find_all_active_calls_all_subroutines() {
             GetAvailableDronesQuery query = new GetAvailableDronesQuery();
 
             DroneAdapter spyAdapter = spy(adapter);
-            List<DroneDto> drones = spyAdapter.findAllAvailableDrones(query);
+            spyAdapter.findAllAvailableDrones(query);
+            verify(mockJpaDroneRepo).findAllByState("IDLE");
+            verify(spyAdapter).processCollection(List.of());
+        }
+
+        @Test
+        void that_find_all_calls_all_subroutines() {
+            DroneAdapter spyAdapter = spy(adapter);
+            List<DroneDto> drones = spyAdapter.findAll();
+            verify(mockJpaDroneRepo).findAll();
+            verify(spyAdapter).processCollection(List.of());
+        }
+
+        @Test
+        void that_process_collection_returns_empty_list_when_input_is_empty() {
+
+            DroneAdapter spyAdapter = spy(adapter);
+            List<DroneDto> drones = spyAdapter.processCollection(List.of());
 
             assertTrue(drones.isEmpty());
-            verify(mockJpaDroneRepo).findAllByState("IDLE");
             verify(spyAdapter, never()).toDtoWithBatteryLevel(any());
         }
 
         @Test
         void that_calls_all_subroutines_when_drones_are_available() {
-            GetAvailableDronesQuery query = new GetAvailableDronesQuery();
 
-            doReturn(List.of(mockJpaDrone(), mockJpaDrone())).when(mockJpaDroneRepo).findAllByState("IDLE");
+            List<JpaDrone> jpaDrones = List.of(mockJpaDrone(), mockJpaDrone());
 
             DroneAdapter spyAdapter = spy(adapter);
-            List<DroneDto> drones = spyAdapter.findAllAvailableDrones(query);
+            List<DroneDto> drones = spyAdapter.processCollection(jpaDrones);
 
             assertEquals(2, drones.size());
-            verify(mockJpaDroneRepo).findAllByState("IDLE");
             verify(spyAdapter, times(2)).toDtoWithBatteryLevel(any());
         }
     }

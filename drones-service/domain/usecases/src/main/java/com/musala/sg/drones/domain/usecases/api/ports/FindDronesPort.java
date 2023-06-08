@@ -12,4 +12,6 @@ public interface FindDronesPort {
     List<DroneDto> findAllAvailableDrones(GetAvailableDronesQuery query);
 
     Optional<DroneDto> findBy(DroneSearchQuery query);
+
+    List<DroneDto> findAll();
 }

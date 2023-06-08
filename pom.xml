@@ -60,12 +60,7 @@
                 <version>${mocito.junit.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- Tools -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>RELEASE</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -28,10 +28,10 @@
             <scope>test</scope>
         </dependency>
         <!-- tools -->
+        <!-- Tools -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>

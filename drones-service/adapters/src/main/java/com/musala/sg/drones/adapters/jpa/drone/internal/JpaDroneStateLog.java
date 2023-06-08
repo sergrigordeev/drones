@@ -13,7 +13,7 @@ import java.util.UUID;
         @Index(name = "battery_level_serial_number", columnList = "serial_number", unique = true)})
 @Getter
 @Setter
-public class JpaBatteryLevelLog {
+public class JpaDroneStateLog {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
@@ -24,8 +24,9 @@ public class JpaBatteryLevelLog {
     private String serialNumber;
 
     @Column(nullable = false, updatable = false, unique = true)
-    int batteryLevel;
-
+    Integer batteryLevel;
+    @Column(nullable = false, updatable = false, unique = true)
+    Boolean success;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

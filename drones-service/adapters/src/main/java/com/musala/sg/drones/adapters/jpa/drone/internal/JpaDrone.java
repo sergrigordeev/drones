@@ -29,6 +29,7 @@ public class JpaDrone {
     @Column(nullable = false, updatable = false)
     private String model;
     private int maxWeight;
+    @Column(nullable = false)
     private String state;
     @OneToMany(mappedBy = "drone")
     private List<JpaCargo> cargos;

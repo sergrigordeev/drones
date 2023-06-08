@@ -27,7 +27,7 @@ public class DroneRuntimeStatusCheckUsecase implements Usecase<DroneSearchQuery,
     }
 
     protected void updateStatus(DroneStatusDto dto) {
-        trxTemplate.executeWithoutResult(status -> runtimeDroneStatusReportPort.save(dto));
+        trxTemplate.executeWithoutResult(status -> runtimeDroneStatusReportPort.addLogEntry(dto));
     }
 
     protected DroneStatusResponse convert(DroneStatusDto dto) {

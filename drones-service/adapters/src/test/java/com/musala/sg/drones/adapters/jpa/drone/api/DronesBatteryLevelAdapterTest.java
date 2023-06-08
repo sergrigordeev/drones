@@ -1,10 +1,11 @@
 package com.musala.sg.drones.adapters.jpa.drone.api;
 
-import com.musala.sg.drones.adapters.jpa.drone.internal.JpaBatteryLevelLog;
-import com.musala.sg.drones.adapters.jpa.drone.internal.JpaBatteryLevelRepository;
-import com.musala.sg.drones.adapters.jpa.drone.internal.mappers.JpaBatteryLevelMapper;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDroneStateLog;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDroneStateRepository;
+import com.musala.sg.drones.adapters.jpa.drone.internal.mappers.JpaDroneStateLogMapper;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.drones.battery.BatteryLevelLogDto;
+import com.musala.sg.drones.domain.usecases.api.ports.dto.DroneStatusDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -24,9 +25,9 @@ class DronesBatteryLevelAdapterTest {
     @InjectMocks
     DronesBatteryLevelAdapter adapter;
     @Mock
-    JpaBatteryLevelRepository mockJpaBatteryLevelRepository;
+    JpaDroneStateRepository mockJpaDroneStateRepository;
     @Spy
-    JpaBatteryLevelMapper spyMapper = Mappers.getMapper(JpaBatteryLevelMapper.class);
+    JpaDroneStateLogMapper spyMapper = Mappers.getMapper(JpaDroneStateLogMapper.class);
 
     @Test
     void that_returns_optional_empty_when_no_log_exist() {
@@ -35,19 +36,29 @@ class DronesBatteryLevelAdapterTest {
         Optional<BatteryLevelLogDto> optBatteryLevel = adapter.findLatestBySerialNumber(query);
 
         assertTrue(optBatteryLevel.isEmpty());
-        verify(mockJpaBatteryLevelRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
+        verify(mockJpaDroneStateRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
         verify(spyMapper, never()).toDto(any());
     }
 
     @Test
     void that_returns_result() {
         DroneSearchQuery query = new DroneSearchQuery("SN");
-        JpaBatteryLevelLog entity = new JpaBatteryLevelLog();
-        doReturn(Optional.of(entity)).when(mockJpaBatteryLevelRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
+        JpaDroneStateLog entity = new JpaDroneStateLog();
+        doReturn(Optional.of(entity)).when(mockJpaDroneStateRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
         Optional<BatteryLevelLogDto> optBatteryLevel = adapter.findLatestBySerialNumber(query);
 
         assertTrue(optBatteryLevel.isPresent());
-        verify(mockJpaBatteryLevelRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
+        verify(mockJpaDroneStateRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
         verify(spyMapper).toDto(entity);
+    }
+
+    @Test
+    void that_save_entity() {
+        DroneStatusDto dto = DroneStatusDto.builder().serialNumber("SN").build();
+
+        adapter.addLogEntry(dto);
+
+        verify(mockJpaDroneStateRepository).save(argThat(e->e.getSerialNumber().equals("SN")));
+        verify(spyMapper).partialUpdate(eq(dto), argThat(e->e.getSerialNumber().equals("SN")));
     }
 }

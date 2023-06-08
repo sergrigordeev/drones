@@ -1,6 +1,6 @@
-package com.musala.sg.drones.adapters.jpa.drone.mappers;
+package com.musala.sg.drones.adapters.jpa.drone.internal.mappers;
 
-import com.musala.sg.drones.adapters.jpa.drone.JpaDrone;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDrone;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import org.mapstruct.*;
 

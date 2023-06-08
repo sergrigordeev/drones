@@ -1,7 +1,11 @@
-package com.musala.sg.drones.adapters.jpa.drone;
+package com.musala.sg.drones.adapters.jpa.drone.api;
 
-import com.musala.sg.drones.adapters.jpa.drone.mappers.JpaCargoMapper;
-import com.musala.sg.drones.adapters.jpa.drone.mappers.JpaDroneMapper;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaCargo;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaCargoRepository;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDrone;
+import com.musala.sg.drones.adapters.jpa.drone.internal.JpaDroneRepository;
+import com.musala.sg.drones.adapters.jpa.drone.internal.mappers.JpaCargoMapper;
+import com.musala.sg.drones.adapters.jpa.drone.internal.mappers.JpaDroneMapper;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.drones.availability.GetAvailableDronesQuery;

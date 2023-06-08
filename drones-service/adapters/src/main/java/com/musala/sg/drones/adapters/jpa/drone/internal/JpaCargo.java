@@ -1,4 +1,4 @@
-package com.musala.sg.drones.adapters.jpa.drone;
+package com.musala.sg.drones.adapters.jpa.drone.internal;
 
 import jakarta.persistence.*;
 import lombok.Getter;

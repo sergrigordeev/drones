@@ -7,7 +7,7 @@ import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
-import com.musala.sg.drones.domain.usecases.exception.NoDroneFoundException;
+import com.musala.sg.drones.domain.usecases.exception.DroneNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class CheckCargoForDroneUsecase implements Usecase<CheckCargoQuery, Check
     @Override
     public CheckCargoResponse execute(CheckCargoQuery query) {
         DroneSearchQuery searchDroneQuery = convertToDroneSearchQuery(query);
-        DroneDto droneDto = findDronesPort.findBy(searchDroneQuery).orElseThrow(() -> new NoDroneFoundException(searchDroneQuery));
+        DroneDto droneDto = findDronesPort.findBy(searchDroneQuery).orElseThrow(() -> new DroneNotFoundException(searchDroneQuery));
         Drone drone = droneFactory.restore(droneDto);
         return convert(drone);
     }

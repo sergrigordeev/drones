@@ -11,7 +11,7 @@ import com.musala.sg.drones.domain.core.internal.DroneIdentity;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.api.ports.SaveDronePort;
-import com.musala.sg.drones.domain.usecases.exception.NoDroneFoundException;
+import com.musala.sg.drones.domain.usecases.exception.DroneNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,7 +41,7 @@ class LoadMedicationUsecaseTest {
     void that_throws_when_drone_not_found_exception_when_no_drone_exists_by_sn() {
         LoadMedicationCommand command = new LoadMedicationCommand("sn", new CargoDto("name", "CODE", 1, ""));
 
-        NoDroneFoundException exception = assertThrows(NoDroneFoundException.class, () -> usecase.execute(command));
+        DroneNotFoundException exception = assertThrows(DroneNotFoundException.class, () -> usecase.execute(command));
 
         assertEquals("No drone with SN sn has been found", exception.getMessage());
     }

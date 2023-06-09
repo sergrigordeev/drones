@@ -4,5 +4,6 @@ import com.musala.sg.drones.domain.usecases.api.Response;
 
 import java.time.OffsetDateTime;
 
-record GetDroneBatteryLevelResponse(String serialNumber, int batteryLevel, OffsetDateTime dateTime) implements Response {
+public record GetDroneBatteryLevelResponse(String serialNumber, int batteryLevel,
+                                           OffsetDateTime dateTime) implements Response {
 }

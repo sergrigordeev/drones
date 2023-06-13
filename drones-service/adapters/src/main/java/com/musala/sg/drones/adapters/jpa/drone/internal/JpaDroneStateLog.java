@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(indexes = {
-        @Index(name = "battery_level_serial_number", columnList = "serial_number", unique = true)})
+        @Index(name = "battery_level_serial_number", columnList = "serialNumber", unique = true)})
 @Getter
 @Setter
 public class JpaDroneStateLog {

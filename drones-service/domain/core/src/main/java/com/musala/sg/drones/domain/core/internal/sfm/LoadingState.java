@@ -23,8 +23,8 @@ public class LoadingState extends DroneFSM {
 
     @Override
     public void load(Medication medication) {
-        getDrone().updateState(this);
         getDrone().loadToCargoHold(medication);
+        getDrone().updateState(this);
     }
 
     @Override

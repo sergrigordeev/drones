@@ -5,11 +5,13 @@ import com.musala.sg.drones.domain.core.api.DroneFactory;
 import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.dto.CargoDto;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
+import com.musala.sg.drones.domain.core.api.exceptions.CargoLoadException;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.api.ports.SaveDronePort;
 import com.musala.sg.drones.domain.usecases.exception.DroneNotFoundException;
+import com.musala.sg.drones.domain.usecases.exception.LoadMedicationException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
@@ -28,9 +30,13 @@ public class LoadMedicationUsecase implements Usecase<LoadMedicationCommand, Loa
         DroneSearchQuery query = convertToDroneSearchQuery(command);
         DroneDto droneDto = findDronesPort.findBy(query).orElseThrow(() -> new DroneNotFoundException(query));
         Drone drone = droneFactory.restore(droneDto);
-        drone.load(convertMedication(command.medication()));
-        saveDronesPort.loadMedication(command);
-        return new LoadMedicationResponse();
+        try {
+            drone.load(convertMedication(command.medication()));
+            saveDronesPort.loadMedication(command);
+            return new LoadMedicationResponse();
+        } catch (CargoLoadException | IllegalStateException e) {
+            throw new LoadMedicationException(e.getMessage());
+        }
     }
 
     protected Medication convertMedication(CargoDto cargo) {

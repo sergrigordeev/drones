@@ -6,12 +6,14 @@ import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.State;
 import com.musala.sg.drones.domain.core.api.dto.CargoDto;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
+import com.musala.sg.drones.domain.core.api.exceptions.CargoLoadException;
 import com.musala.sg.drones.domain.core.internal.DroneFactoryImpl;
 import com.musala.sg.drones.domain.core.internal.DroneIdentity;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import com.musala.sg.drones.domain.usecases.api.ports.SaveDronePort;
 import com.musala.sg.drones.domain.usecases.exception.DroneNotFoundException;
+import com.musala.sg.drones.domain.usecases.exception.LoadMedicationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,11 +54,24 @@ class LoadMedicationUsecaseTest {
         DroneSearchQuery droneSearchQuery = new DroneSearchQuery("sn");
         doReturn(Optional.of(mockDroneDto("sn"))).when(mockFindDronesPort).findBy(droneSearchQuery);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> usecase.execute(command));
+        LoadMedicationException exception = assertThrows(LoadMedicationException.class, () -> usecase.execute(command));
 
         assertEquals("Name should contains only letters, '_', '-', but it is na me", exception.getMessage());
     }
+    @Test
+    void that_throws_when_drone_has_not_enough_space() {
+        LoadMedicationCommand command = new LoadMedicationCommand("sn", new CargoDto("name", "CODE", 1, ""));
+        DroneSearchQuery droneSearchQuery = new DroneSearchQuery("sn");
+        DroneDto mockDroneDto = mockDroneDto("sn");
+        doReturn(Optional.of(mockDroneDto)).when(mockFindDronesPort).findBy(droneSearchQuery);
+        Drone mockDrone = mock(Drone.class);
+        doReturn(mockDrone).when(spyDroneFactory).restore(mockDroneDto);
+        doThrow(new CargoLoadException("the big problem")).when(mockDrone).load(any());
 
+        LoadMedicationException exception = assertThrows(LoadMedicationException.class, () -> usecase.execute(command));
+
+        assertEquals("the big problem", exception.getMessage());
+    }
     @Test
     void that_calls_all_required_method() {
         LoadMedicationCommand command = new LoadMedicationCommand("dto", new CargoDto("name", "CODE", 1, ""));

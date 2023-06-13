@@ -40,8 +40,6 @@ public class RegisterDroneUsecase implements Usecase<RegisterDroneCommand, Drone
         } catch (Exception e) {
             throw new DroneRegistrationException(e.getMessage());
         }
-
-
     }
 
     protected DroneDto convert(Drone drone) {

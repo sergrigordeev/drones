@@ -1,9 +1,7 @@
 package com.musala.sg.drones.container.controllers;
 
-import com.musala.sg.drones.domain.usecases.exception.BatteryLevelNotFoundException;
-import com.musala.sg.drones.domain.usecases.exception.DroneNotFoundException;
-import com.musala.sg.drones.domain.usecases.exception.DroneRegistrationException;
-import com.musala.sg.drones.domain.usecases.exception.UsecaseException;
+import com.musala.sg.drones.domain.core.api.exceptions.CargoLoadException;
+import com.musala.sg.drones.domain.usecases.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +26,8 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(ApiErrorResponse.of400(ex), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {DroneRegistrationException.class})
-    protected ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValid(DroneRegistrationException ex) {
+    @ExceptionHandler(value = {DroneRegistrationException.class, LoadMedicationException.class})
+    protected ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValid(UsecaseException ex) {
         logIt(ex);
         return new ResponseEntity<>(ApiErrorResponse.of400(ex), HttpStatus.BAD_REQUEST);
     }

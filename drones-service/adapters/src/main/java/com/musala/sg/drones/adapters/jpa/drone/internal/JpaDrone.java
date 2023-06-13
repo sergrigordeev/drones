@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(indexes = {
-        @Index(name = "drone_serial_number", columnList = "serial_number", unique = true)})
+        @Index(name = "drone_serial_number", columnList = "serialNumber", unique = true)})
 @NamedEntityGraph(name = "Drone.cargos",
         attributeNodes = @NamedAttributeNode("cargos")
 )

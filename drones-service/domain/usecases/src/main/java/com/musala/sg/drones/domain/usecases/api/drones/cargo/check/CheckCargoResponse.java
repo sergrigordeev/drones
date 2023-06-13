@@ -4,6 +4,6 @@ import com.musala.sg.drones.domain.usecases.api.Response;
 
 import java.util.List;
 
-public record CheckCargoResponse(int maxWeight, int available,
+public record CheckCargoResponse(int maxWeight, int availableWeight,
                                  List<MedicationResponse> medications) implements Response {
 }

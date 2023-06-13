@@ -1,0 +1,191 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1686685079321-1
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_jpacargo
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: drone_id
+                  type: UUID
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: weight
+                  type: INT
+              - column:
+                  name: image_url
+                  type: VARCHAR(255)
+            tableName: jpa_cargo
+  - changeSet:
+      id: 1686685079321-2
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_jpadrone
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: serial_number
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: model
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: max_weight
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: state
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: modified_at
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+            tableName: jpa_drone
+  - changeSet:
+      id: 1686685079321-3
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_jpadronestatelog
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: serial_number
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: battery_level
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: success
+                  type: BOOLEAN
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+            tableName: jpa_drone_state_log
+  - changeSet:
+      id: 1686685079321-4
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: serial_number
+            constraintName: uc_jpadrone_serialnumber
+            tableName: jpa_drone
+  - changeSet:
+      id: 1686685079321-5
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: battery_level
+            constraintName: uc_jpadronestatelog_batterylevel
+            tableName: jpa_drone_state_log
+  - changeSet:
+      id: 1686685079321-6
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: serial_number
+            constraintName: uc_jpadronestatelog_serialnumber
+            tableName: jpa_drone_state_log
+  - changeSet:
+      id: 1686685079321-7
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: success
+            constraintName: uc_jpadronestatelog_success
+            tableName: jpa_drone_state_log
+  - changeSet:
+      id: 1686685079321-8
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: serial_number
+            indexName: battery_level_serial_number
+            tableName: jpa_drone_state_log
+            unique: true
+  - changeSet:
+      id: 1686685079321-9
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: serial_number
+            indexName: drone_serial_number
+            tableName: jpa_drone
+            unique: true
+  - changeSet:
+      id: 1686685079321-10
+      author: rkr (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: drone_id
+            baseTableName: jpa_cargo
+            constraintName: FK_JPACARGO_ON_DRONE
+            referencedColumnNames: id
+            referencedTableName: jpa_drone
+

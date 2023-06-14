@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ms-reservation:
+    container_name: drone-app
+    build:
+      context: drones-service/container
+      dockerfile: Dockerfile
+    image: drone-container:latest
+    ports:
+      - "18000:8080"
+    networks:
+      - the-grid-network
+networks:
+  the-grid-network:
+    driver: bridge

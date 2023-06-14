@@ -14,7 +14,7 @@ public class DummyDroneStateAdapter implements RuntimeDroneStatusCheckPort {
     public DroneStatusDto check(DroneSearchQuery request) {
         float minute = LocalDateTime.now().getMinute();
 
-        float percents = Math.min(100, (100 * (minute / 60)) + 25);
+        float percents = Math.max(26, (100 * (minute / 60)));
         return DroneStatusDto.builder()
                 .serialNumber(request.serialNumber())
                 .batteryLevel((int) percents)

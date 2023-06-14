@@ -1,13 +1,18 @@
 package com.musala.sg.drones.domain.usecases.api.drones.availability;
 
+import com.musala.sg.drones.domain.core.api.DroneFactory;
 import com.musala.sg.drones.domain.core.api.State;
+import com.musala.sg.drones.domain.core.api.dto.CargoDto;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
+import com.musala.sg.drones.domain.core.internal.DroneFactoryImpl;
+import com.musala.sg.drones.domain.core.internal.DroneIdentity;
 import com.musala.sg.drones.domain.usecases.api.DroneResponse;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -22,6 +27,8 @@ class GetAvailableDronesUsecaseTest {
     GetAvailableDronesUsecase usecase;
     @Mock
     FindDronesPort mockFindDronesPort;
+    @Spy
+    DroneFactory spyFactory = new DroneFactoryImpl();
 
     @Test
     void that_returns_empty_list_when_no_drones_available() {
@@ -52,9 +59,10 @@ class GetAvailableDronesUsecaseTest {
     private DroneDto mockDroneDto(String sn, int availableWeight, int batteryLevel) {
         return DroneDto.builder()
                 .serialNumber(sn)
+                .model(DroneIdentity.Model.CRUISERWEIGHT.name())
                 .maxWeight(500)
-                .availableWeight(availableWeight)
                 .batteryLevel(batteryLevel)
+                .cargos(List.of(new CargoDto("name", "CODE", (500 - availableWeight), "imgUrl")))
                 .state(State.IDLE.name())
                 .build();
     }

@@ -20,12 +20,12 @@ public class JpaDroneStateLog {
     @Id
     private UUID id;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, updatable = false)
     private String serialNumber;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, updatable = false)
     Integer batteryLevel;
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, updatable = false)
     Boolean success;
     @CreationTimestamp
     private LocalDateTime createdAt;

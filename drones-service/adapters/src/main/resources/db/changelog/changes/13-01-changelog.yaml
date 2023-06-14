@@ -117,42 +117,7 @@ databaseChangeLog:
                   name: version
                   type: INT
             tableName: jpa_drone_state_log
-  - changeSet:
-      id: 1686685079321-4
-      author: rkr (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: serial_number
-            constraintName: uc_jpadrone_serialnumber
-            tableName: jpa_drone
-  - changeSet:
-      id: 1686685079321-5
-      author: rkr (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: battery_level
-            constraintName: uc_jpadronestatelog_batterylevel
-            tableName: jpa_drone_state_log
-  - changeSet:
-      id: 1686685079321-6
-      author: rkr (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: serial_number
-            constraintName: uc_jpadronestatelog_serialnumber
-            tableName: jpa_drone_state_log
-  - changeSet:
-      id: 1686685079321-7
-      author: rkr (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: success
-            constraintName: uc_jpadronestatelog_success
-            tableName: jpa_drone_state_log
+
   - changeSet:
       id: 1686685079321-8
       author: rkr (generated)
@@ -164,7 +129,6 @@ databaseChangeLog:
                   name: serial_number
             indexName: battery_level_serial_number
             tableName: jpa_drone_state_log
-            unique: true
   - changeSet:
       id: 1686685079321-9
       author: rkr (generated)

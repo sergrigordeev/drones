@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,6 +45,7 @@ class DronesBatteryLevelAdapterTest {
     void that_returns_result() {
         DroneSearchQuery query = new DroneSearchQuery("SN");
         JpaDroneStateLog entity = new JpaDroneStateLog();
+        entity.setCreatedAt(LocalDateTime.MIN);
         doReturn(Optional.of(entity)).when(mockJpaDroneStateRepository).findFirstBySerialNumberOrderByCreatedAtDesc("SN");
         Optional<BatteryLevelLogDto> optBatteryLevel = adapter.findLatestBySerialNumber(query);
 
@@ -58,7 +60,7 @@ class DronesBatteryLevelAdapterTest {
 
         adapter.addLogEntry(dto);
 
-        verify(mockJpaDroneStateRepository).save(argThat(e->e.getSerialNumber().equals("SN")));
-        verify(spyMapper).partialUpdate(eq(dto), argThat(e->e.getSerialNumber().equals("SN")));
+        verify(mockJpaDroneStateRepository).save(argThat(e -> e.getSerialNumber().equals("SN")));
+        verify(spyMapper).partialUpdate(eq(dto), argThat(e -> e.getSerialNumber().equals("SN")));
     }
 }

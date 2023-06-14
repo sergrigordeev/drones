@@ -79,6 +79,8 @@ class LoadMedicationUsecaseTest {
         DroneDto dto = mockDroneDto("dto");
         doReturn(Optional.of(dto)).when(mockFindDronesPort).findBy(droneSearchQuery);
         Drone mockDrone = mock(Drone.class);
+
+        doReturn(new DroneIdentity("SN", DroneIdentity.Model.CRUISERWEIGHT)).when(mockDrone).getIdentity();
         doReturn(mockDrone).when(spyDroneFactory).restore(dto);
 
 
@@ -93,6 +95,7 @@ class LoadMedicationUsecaseTest {
         verify(spyDroneFactory).restore(dto);
         verify(mockDrone).load(any(Medication.class));
         verify(mockSaveDronePort).loadMedication(any());
+        verify(mockSaveDronePort).save(any());
     }
 
     private DroneDto mockDroneDto(String sn) {

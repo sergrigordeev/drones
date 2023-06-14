@@ -6,6 +6,8 @@ import com.musala.sg.drones.domain.core.api.Medication;
 import com.musala.sg.drones.domain.core.api.dto.CargoDto;
 import com.musala.sg.drones.domain.core.api.dto.DroneDto;
 import com.musala.sg.drones.domain.core.api.exceptions.CargoLoadException;
+import com.musala.sg.drones.domain.core.api.exceptions.LoadingStateException;
+import com.musala.sg.drones.domain.core.internal.DroneIdentity;
 import com.musala.sg.drones.domain.usecases.api.DroneSearchQuery;
 import com.musala.sg.drones.domain.usecases.api.Usecase;
 import com.musala.sg.drones.domain.usecases.api.ports.FindDronesPort;
@@ -31,12 +33,26 @@ public class LoadMedicationUsecase implements Usecase<LoadMedicationCommand, Loa
         DroneDto droneDto = findDronesPort.findBy(query).orElseThrow(() -> new DroneNotFoundException(query));
         Drone drone = droneFactory.restore(droneDto);
         try {
+            drone.startLoading();
             drone.load(convertMedication(command.medication()));
+            saveDronesPort.save(convert(drone));
             saveDronesPort.loadMedication(command);
             return new LoadMedicationResponse();
-        } catch (CargoLoadException | IllegalStateException e) {
+        } catch (CargoLoadException | IllegalStateException | LoadingStateException e) {
             throw new LoadMedicationException(e.getMessage());
         }
+    }
+
+    protected DroneDto convert(Drone drone) {
+        DroneIdentity identity = drone.getIdentity();
+        return DroneDto.builder()
+                .serialNumber(identity.getSerialNumber())
+                .model(identity.getModel().name())
+                .state(drone.getState())
+                .maxWeight(drone.getMaxWeight())
+                .availableWeight(drone.getAvailableWeight())
+                .batteryLevel(drone.getBatteryLevel())
+                .build();
     }
 
     protected Medication convertMedication(CargoDto cargo) {

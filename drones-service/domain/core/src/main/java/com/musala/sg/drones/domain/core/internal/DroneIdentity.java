@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 public class DroneIdentity {
 
-    public static final int MAX_SERIAL_NUM_LENGHT = 100;
+    public static final int MAX_SERIAL_NUM_LENGTH = 100;
 
     //TODO "hide" it. Use  factory
     public DroneIdentity(@NonNull String serialNumber, @NonNull Model model) {
@@ -24,7 +24,7 @@ public class DroneIdentity {
     }
 
     private boolean isSerialNumberCorrect() {
-        return !serialNumber.isBlank() && serialNumber.length() <= MAX_SERIAL_NUM_LENGHT;
+        return !serialNumber.isBlank() && serialNumber.length() <= MAX_SERIAL_NUM_LENGTH;
     }
 
     private final String serialNumber;

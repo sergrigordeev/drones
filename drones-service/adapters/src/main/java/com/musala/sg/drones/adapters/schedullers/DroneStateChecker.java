@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class DroneStateChecker {
     private final DroneRuntimeStatusCheckUsecase usecase;
     private final FindDronesPort findDronesPort;
 
+    @Transactional
     @Scheduled(fixedDelayString = "${drones.checker.fixedDelay.in.milliseconds:60000}", initialDelayString = "${drones.checker.initialDelay.in.milliseconds:10000}")
     void check() {
         List<DroneDto> drones = findDronesPort.findAll();
@@ -25,6 +27,10 @@ public class DroneStateChecker {
         for (DroneDto drone : drones) {
             log.info("--> check {}", drone.getSerialNumber());
             try {
+                if (drone.getSerialNumber().startsWith("SBL_")){
+                    log.info("-->--> SKIPPED - PREDEFINED ");
+                    continue;
+                }
                 usecase.execute(new DroneSearchQuery(drone.getSerialNumber()));
                 log.info("--> checked");
             } catch (Exception e) {

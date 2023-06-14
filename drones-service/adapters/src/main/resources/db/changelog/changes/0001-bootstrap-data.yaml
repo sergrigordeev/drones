@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: init 5 drones
+      author: rkr
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS #IDLE, LOADING, LOADED, DELIVERING, DELIVERED, UNLOADING, UNLOADED, RETURNING, CHARGING
+      #  LIGHTWEIGHT, MIDDLEWEIGHT, CRUISERWEIGHT, HEAVYWEIGHT
+      changes:
+        - sql:
+            endDelimiter: \nGO
+            splitStatements: true
+            sql: >
+              insert into jpa_drone (id, serial_number, model, max_weight, state, version) values (UUID(),'SBL_SN_1','LIGHTWEIGHT',   150, 'IDLE',       0);
+              insert into jpa_drone (id, serial_number, model, max_weight, state, version) values (UUID(),'SBL_SN_2','MIDDLEWEIGHT',  250, 'DELIVERING', 0);
+              insert into jpa_drone (id, serial_number, model, max_weight, state, version) values (UUID(),'SBL_SN_3','CRUISERWEIGHT', 350, 'RETURNING',  0);
+              insert into jpa_drone (id, serial_number, model, max_weight, state, version) values (UUID(),'SBL_SN_4','HEAVYWEIGHT',   450, 'IDLE',       0);
+              insert into jpa_drone (id, serial_number, model, max_weight, state, version) values (UUID(),'SBL_SN_5','HEAVYWEIGHT',   450, 'LOADING',    0);
+
+        - sql:
+            endDelimiter: \nGO
+            splitStatements: true
+            sql: >
+              insert into jpa_drone_state_log (id, serial_number, battery_level, success, created_at, version) values (UUID(),'SBL_SN_1', 80, true, '2012-09-17 18:47:52.069',0);
+              insert into jpa_drone_state_log (id, serial_number, battery_level, success, created_at, version) values (UUID(),'SBL_SN_2', 70, true, '2012-09-17 18:47:52.069',0);
+              insert into jpa_drone_state_log (id, serial_number, battery_level, success, created_at, version) values (UUID(),'SBL_SN_3', 80, true, '2012-09-17 18:47:52.069',0);
+              insert into jpa_drone_state_log (id, serial_number, battery_level, success, created_at, version) values (UUID(),'SBL_SN_4', 23, true, '2012-09-17 18:47:52.069',0);
+              insert into jpa_drone_state_log (id, serial_number, battery_level, success, created_at, version) values (UUID(),'SBL_SN_5', 90, true, '2012-09-17 18:47:52.069',0);
+        - sql:
+            endDelimiter: \nGO
+            splitStatements: true
+            sql: >
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_2', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_2', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_2', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_2', 'MED_TWO', 'MED_CODE_2', 200,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_2', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_5', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_5', 'MED_ONE', 'MED_CODE_1', 10,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_5', 'MED_TWO', 'MED_CODE_2', 200,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_5', 'MED_TREE', 'MED_CODE_3', 150,'url');
+              insert into jpa_cargo (id, drone_id, name, code, weight, image_url) values (UUID(),SELECT id FROM jpa_drone WHERE serial_number='SBL_SN_5', 'MED_FOUR', 'MED_CODE_4', 50,'url');
+
